@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>VPN EMPIRE</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Tahoma,Arial,sans-serif;
+background:#050505;
+color:#fff;
+min-height:100vh
+}
+.hidden{display:none!important}
+
+.admin-btn{
+position:fixed;
+top:15px;
+left:15px;
+z-index:9999;
+background:#111;
+border:1px solid #d7a928;
+color:#ffd75b;
+padding:11px 16px;
+border-radius:12px;
+cursor:pointer;
+font-weight:bold
+}
+
+.center{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px
+}
+
+.box{
+width:100%;
+max-width:430px;
+background:linear-gradient(145deg,#151515,#090909);
+border:1px solid #d6a52f;
+border-radius:24px;
+padding:30px;
+box-shadow:0 0 40px #b17c2444
+}
+
+.logo{
+text-align:center;
+font-size:32px;
+font-weight:900;
+color:#f4ca4c;
+margin-bottom:8px
+}
+
+.subtitle{
+text-align:center;
+color:#aaa;
+margin-bottom:25px
+}
+
+input{
+width:100%;
+padding:14px;
+margin:7px 0;
+background:#191919;
+border:1px solid #444;
+border-radius:12px;
+color:#fff;
+outline:none;
+font-size:15px
+}
+
+input:focus{border-color:#e5b936}
+
+button{
+border:0;
+border-radius:12px;
+padding:13px 18px;
+background:linear-gradient(135deg,#f4d35e,#a87312);
+font-weight:bold;
+cursor:pointer
+}
+
+.main-btn{
+width:100%;
+margin-top:10px
+}
+
+.switch{
+background:#292929;
+color:#fff;
+width:100%;
+margin-top:10px
+}
+
+.message{
+margin-top:12px;
+padding:11px;
+border-radius:10px;
+background:#181818;
+color:#bbb;
+text-align:center
+}
+
+/* مشتری */
+.customer-panel{
+min-height:100vh;
+padding:25px 15px 50px;
+background:
+radial-gradient(circle at top,#392a08,transparent 40%),
+#050505
+}
+
+.customer-content{
+max-width:850px;
+margin:auto;
+text-align:center
+}
+
+.customer-logo{
+font-size:48px;
+font-weight:900;
+color:#f4ca4c;
+margin:20px 0 5px
+}
+
+.customer-title{
+font-size:18px;
+color:#ddd;
+margin-bottom:25px
+}
+
+.buy-box{
+max-width:500px;
+margin:auto;
+background:#111;
+border:1px solid #5c481b;
+border-radius:22px;
+padding:22px
+}
+
+.buy-box h2{color:#f4ca4c}
+
+.price-info{
+font-size:22px;
+font-weight:bold;
+color:#ffd452;
+margin:15px 0
+}
+
+.result{
+font-size:20px;
+margin-top:15px;
+padding:15px;
+border-radius:14px;
+background:#191919;
+color:#fff
+}
+
+.admin-login{
+position:fixed;
+inset:0;
+background:#050505;
+z-index:10000;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px
+}
+
+.dashboard{
+min-height:100vh;
+padding:20px;
+background:
+radial-gradient(circle at top right,#302407,transparent 35%),
+#080808
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+flex-wrap:wrap;
+gap:10px
+}
+
+.header h1{color:#f4ca4c}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-bottom:20px
+}
+
+.stat{
+background:#111;
+border:1px solid #3d3218;
+border-radius:18px;
+padding:20px;
+text-align:center
+}
+
+.stat b{
+display:block;
+font-size:30px;
+color:#f4ca4c;
+margin-top:8px
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px
+}
+
+.card{
+background:#111;
+border:1px solid #3d3218;
+border-radius:20px;
+padding:22px
+}
+
+.card h2{
+margin-top:0;
+color:#f4ca4c
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:13px
+}
+
+th,td{
+padding:10px 5px;
+border-bottom:1px solid #292929;
+text-align:center
+}
+
+th{color:#f4ca4c}
+
+.small-btn{
+padding:7px 9px;
+font-size:11px
+}
+
+.danger{
+background:#9c2929;
+color:#fff
+}
+
+.price-row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+align-items:center
+}
+
+.logout{
+background:#333;
+color:#fff
+}
+
+@media(max-width:800px){
+.stats{grid-template-columns:1fr 1fr}
+.grid{grid-template-columns:1fr}
+}
+
+@media(max-width:450px){
+.stats{grid-template-columns:1fr}
+.customer-logo{font-size:36px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- دکمه مدیریت بالا سمت چپ -->
+<button class="admin-btn" onclick="openAdmin()">
+⚙️ پنل مدیریت
+</button>
+
+
+<!-- ================= مشتری ================= -->
+
+<section id="customerPage" class="customer-panel">
+
+<div class="customer-content">
+
+<div class="customer-logo">👑 VPN EMPIRE</div>
+
+<div class="customer-title">
+فروش سریع و آنی کانفیگ
+</div>
+
+<div class="buy-box">
+
+<h2>ورود مشتری</h2>
+
+<input id="customerEmail" type="email" placeholder="ایمیل">
+
+<input id="customerPassword" type="password" placeholder="رمز عبور">
+
+<button class="main-btn" onclick="customerLogin()">
+ورود / ثبت حساب
+</button>
+
+<div id="customerMessage" class="message hidden"></div>
+
+<div id="shop" class="hidden">
+
+<h2>🛒 خرید کانفیگ</h2>
+
+<div class="price-info">
+هر گیگ فقط ۳,۰۰۰ تومان
+</div>
+
+<input
+id="gigInput"
+type="number"
+min="1"
+placeholder="تعداد گیگ را وارد کنید"
+oninput="calculatePrice()"
+>
+
+<div id="priceResult" class="result">
+قیمت کل: ۰ تومان
+</div>
+
+<button class="main-btn" onclick="buyConfig()">
+⚡ خرید کانفیگ
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ورود مدیریت ================= -->
+
+<section id="adminLogin" class="admin-login hidden">
+
+<div class="box">
+
+<div class="logo">👑 مدیریت</div>
+
+<div class="subtitle">
+ورود به پنل مدیریت
+</div>
+
+<input
+id="adminEmail"
+type="email"
+placeholder="ایمیل مدیریت"
+>
+
+<input
+id="adminPassword"
+type="password"
+placeholder="رمز عبور"
+>
+
+<button class="main-btn" onclick="adminLogin()">
+ورود
+</button>
+
+<button
+class="switch"
+onclick="closeAdmin()">
+بازگشت
+</button>
+
+<div id="adminError" class="message hidden">
+ایمیل یا رمز عبور اشتباه است.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= داشبورد ================= -->
+
+<section id="dashboard" class="dashboard hidden">
+
+<div class="header">
+
+<div>
+<h1>👑 پنل مدیریت</h1>
+<div style="color:#aaa">
+مدیریت فروشندگان و کانفیگ‌ها
+</div>
+</div>
+
+<button class="logout" onclick="logoutAdmin()">
+خروج
+</button>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+فروشندگان
+<b id="sellerCount">0</b>
+</div>
+
+<div class="stat">
+کل اشتراک‌های ساخته‌شده
+<b id="totalCreated">0</b>
+</div>
+
+<div class="stat">
+اشتراک‌های فعال
+<b id="activeSubs">0</b>
+</div>
+
+<div class="stat">
+فروش کل
+<b id="totalSales">0</b>
+</div>
+
+</div>
+
+
+<div class="grid">
+
+
+<!-- فروشندگان -->
+
+<div class="card">
+
+<h2>👥 فروشندگان</h2>
+
+<input
+id="sellerEmail"
+type="email"
+placeholder="ایمیل فروشنده"
+>
+
+<input
+id="sellerPassword"
+type="password"
+placeholder="رمز عبور فروشنده"
+>
+
+<button onclick="addSeller()">
+➕ افزودن فروشنده
+</button>
+
+<div style="overflow:auto;margin-top:20px">
+
+<table>
+
+<thead>
+<tr>
+<th>ایمیل</th>
+<th>موجودی</th>
+<th>فعال</th>
+<th>ساخته</th>
+<th>فروش</th>
+<th>حذف</th>
+</tr>
+</thead>
+
+<tbody id="sellerTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- قیمت‌ها -->
+
+<div class="card">
+
+<h2>💰 قیمت کانفیگ</h2>
+
+<div class="message">
+قیمت مشتری: هر گیگ ۳,۰۰۰ تومان
+</div>
+
+<h3 style="color:#f4ca4c">
+قیمت‌های قبلی
+</h3>
+
+<div id="prices"></div>
+
+<button onclick="savePrices()">
+💾 ذخیره قیمت‌ها
+</button>
+
+</div>
+
+
+<!-- حساب مدیریت -->
+
+<div class="card">
+
+<h2>🔐 تغییر اطلاعات مدیریت</h2>
+
+<input
+id="newAdminEmail"
+type="email"
+placeholder="ایمیل جدید مدیریت"
+>
+
+<input
+id="newAdminPassword"
+type="password"
+placeholder="رمز عبور جدید مدیریت"
+>
+
+<button onclick="changeAdmin()">
+💾 تغییر اطلاعات
+</button>
+
+<div class="message">
+بعد از تغییر، با اطلاعات جدید وارد مدیریت شوید.
+</div>
+
+</div>
+
+
+<!-- ورود فروشنده -->
+
+<div class="card">
+
+<h2>🔑 ورود فروشنده</h2>
+
+<div class="message">
+ایمیل و رمز فروشندگانی که اینجا اضافه می‌کنید
+برای ورود فروشنده قابل استفاده است.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<script>
+
+/* ================================
+   اطلاعات مدیریت
+================================ */
+
+let adminData=JSON.parse(
+localStorage.getItem("vpn_admin") ||
+JSON.stringify({
+email:"bnyamynaydany785@gmail.com",
+password:"Rz98189818"
+})
+);
+
+
+/* ================================
+   اطلاعات فروشندگان
+================================ */
+
+let sellers=JSON.parse(
+localStorage.getItem("vpn_sellers") || "[]"
+);
+
+
+/* ================================
+   قیمت‌ها
+================================ */
+
+let prices=JSON.parse(
+localStorage.getItem("vpn_prices") ||
+JSON.stringify({
+"10 گیگ":49000,
+"20 گیگ":79000,
+"30 گیگ":99000,
+"40 گیگ":139000,
+"50 گیگ":169000,
+"80 گیگ":280000,
+"100 گیگ":319000
+})
+);
+
+
+/* ================================
+   مشتری
+================================ */
+
+let customers=JSON.parse(
+localStorage.getItem("vpn_customers") || "[]"
+);
+
+
+function customerLogin(){
+
+const email=document
+.getElementById("customerEmail")
+.value.trim();
+
+const password=document
+.getElementById("customerPassword")
+.value;
+
+if(!email || !password){
+
+showCustomerMessage(
+"ایمیل و رمز عبور را وارد کنید."
+);
+
+return;
+}
+
+let customer=customers.find(
+x=>x.email===email
+);
+
+if(!customer){
+
+customer={
+email:email,
+password:password,
+created:0,
+active:0
+};
+
+customers.push(customer);
+
+localStorage.setItem(
+"vpn_customers",
+JSON.stringify(customers)
+);
+
+}
+
+else if(customer.password!==password){
+
+showCustomerMessage(
+"رمز عبور اشتباه است."
+);
+
+return;
+}
+
+document
+.getElementById("customerMessage")
+.classList.add("hidden");
+
+document
+.getElementById("shop")
+.classList.remove("hidden");
+
+}
+
+
+function showCustomerMessage(text){
+
+const el=document.getElementById(
+"customerMessage"
+);
+
+el.textContent=text;
+
+el.classList.remove("hidden");
+
+}
+
+
+function calculatePrice(){
+
+let gigs=Number(
+document.getElementById("gigInput").value
+)||0;
+
+let total=gigs*3000;
+
+document.getElementById(
+"priceResult"
+).textContent=
+"قیمت کل: "+formatNumber(total)+" تومان";
+
+}
+
+
+function buyConfig(){
+
+let gigs=Number(
+document.getElementById("gigInput").value
+)||0;
+
+if(gigs<1){
+
+alert("تعداد گیگ را وارد کنید.");
+
+return;
+}
+
+let total=gigs*3000;
+
+alert(
+"سفارش ثبت شد\n\n"+
+"حجم: "+formatNumber(gigs)+" گیگ\n"+
+"قیمت: "+formatNumber(total)+" تومان"
+);
+
+}
+
+
+/* ================================
+   مدیریت
+================================ */
+
+function openAdmin(){
+
+document
+.getElementById("adminLogin")
+.classList.remove("hidden");
+
+}
+
+
+function closeAdmin(){
+
+document
+.getElementById("adminLogin")
+.classList.add("hidden");
+
+}
+
+
+function adminLogin(){
+
+const email=document
+.getElementById("adminEmail")
+.value.trim();
+
+const password=document
+.getElementById("adminPassword")
+.value;
+
+if(
+email===adminData.email &&
+password===adminData.password
+){
+
+document
+.getElementById("adminLogin")
+.classList.add("hidden");
+
+document
+.getElementById("customerPage")
+.classList.add("hidden");
+
+document
+.getElementById("dashboard")
+.classList.remove("hidden");
+
+render();
+
+}else{
+
+document
+.getElementById("adminError")
+.classList.remove("hidden");
+
+}
+
+}
+
+
+/* ================================
+   تغییر اطلاعات مدیریت
+================================ */
+
+function changeAdmin(){
+
+const email=document
+.getElementById("newAdminEmail")
+.value.trim();
+
+const password=document
+.getElementById("newAdminPassword")
+.value;
+
+if(!email || !password){
+
+alert("ایمیل و رمز عبور جدید را وارد کنید.");
+
+return;
+}
+
+adminData={
+email:email,
+password:password
+};
+
+localStorage.setItem(
+"vpn_admin",
+JSON.stringify(adminData)
+);
+
+alert("اطلاعات مدیریت با موفقیت تغییر کرد.");
+
+document
+.getElementById("newAdminEmail")
+.value="";
+
+document
+.getElementById("newAdminPassword")
+.value="";
+
+}
+
+
+/* ================================
+   فروشندگان
+================================ */
+
+function addSeller(){
+
+const email=document
+.getElementById("sellerEmail")
+.value.trim();
+
+const password=document
+.getElementById("sellerPassword")
+.value;
+
+if(!email || !password){
+
+alert("ایمیل و رمز عبور فروشنده را وارد کنید.");
+
+return;
+}
+
+if(
+sellers.some(x=>x.email===email)
+){
+
+alert("این فروشنده قبلاً اضافه شده.");
+
+return;
+}
+
+sellers.push({
+email:email,
+password:password,
+balance:0,
+active:0,
+created:0,
+sales:0
+});
+
+saveSellers();
+
+document
+.getElementById("sellerEmail")
+.value="";
+
+document
+.getElementById("sellerPassword")
+.value="";
+
+render();
+
+alert(
+"فروشنده اضافه شد.\n\n"+
+"ایمیل: "+email+
+"\nرمز عبور: "+password
+);
+
+}
+
+
+function deleteSeller(index){
+
+if(
+confirm("این فروشنده حذف شود؟")
+){
+
+sellers.splice(index,1);
+
+saveSellers();
+
+render();
+
+}
+
+}
+
+
+function changeSeller(index,field){
+
+let value=prompt(
+"مقدار جدید را وارد کنید:",
+sellers[index][field]
+);
+
+if(value===null)return;
+
+value=Number(value);
+
+if(isNaN(value) || value<0){
+
+alert("عدد معتبر وارد کنید.");
+
+return;
+}
+
+sellers[index][field]=value;
+
+saveSellers();
+
+render();
+
+}
+
+
+function saveSellers(){
+
+localStorage.setItem(
+"vpn_sellers",
+JSON.stringify(sellers)
+);
+
+}
+
+
+/* ================================
+   قیمت‌ها
+================================ */
+
+function renderPrices(){
+
+const box=document
+.getElementById("prices");
+
+box.innerHTML="";
+
+Object.keys(prices).forEach(name=>{
+
+box.innerHTML+=`
+
+<div class="price-row">
+
+<div>${name}</div>
+
+<input
+type="number"
+data-price="${name}"
+value="${prices[name]}"
+>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+function savePrices(){
+
+document
+.querySelectorAll("[data-price]")
+.forEach(input=>{
+
+prices[input.dataset.price]=
+Number(input.value);
+
+});
+
+localStorage.setItem(
+"vpn_prices",
+JSON.stringify(prices)
+);
+
+alert("قیمت‌ها ذخیره شدند.");
+
+}
+
+
+/* ================================
+   جدول
+================================ */
+
+function renderSellers(){
+
+const table=document
+.getElementById("sellerTable");
+
+table.innerHTML="";
+
+sellers.forEach((seller,index)=>{
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${escapeHTML(seller.email)}</td>
+
+<td>
+${formatNumber(seller.balance)}
+<br>
+<button class="small-btn"
+onclick="changeSeller(${index},'balance')">
+ویرایش
+</button>
+</td>
+
+<td>
+${formatNumber(seller.active)}
+<br>
+<button class="small-btn"
+onclick="changeSeller(${index},'active')">
+ویرایش
+</button>
+</td>
+
+<td>
+${formatNumber(seller.created)}
+<br>
+<button class="small-btn"
+onclick="changeSeller(${index},'created')">
+ویرایش
+</button>
+</td>
+
+<td>
+${formatNumber(seller.sales)}
+<br>
+<button class="small-btn"
+onclick="changeSeller(${index},'sales')">
+ویرایش
+</button>
+</td>
+
+<td>
+<button
+class="small-btn danger"
+onclick="deleteSeller(${index})">
+حذف
+</button>
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+
+/* ================================
+   آمار
+================================ */
+
+function renderStats(){
+
+let created=0;
+let active=0;
+let sales=0;
+
+sellers.forEach(s=>{
+
+created+=Number(s.created)||0;
+active+=Number(s.active)||0;
+sales+=Number(s.sales)||0;
+
+});
+
+document.getElementById(
+"sellerCount"
+).textContent=sellers.length;
+
+document.getElementById(
+"totalCreated"
+).textContent=formatNumber(created);
+
+document.getElementById(
+"activeSubs"
+).textContent=formatNumber(active);
+
+document.getElementById(
+"totalSales"
+).textContent=formatNumber(sales);
+
+}
+
+
+/* ================================
+   نمایش
+================================ */
+
+function render(){
+
+renderStats();
+
+renderSellers();
+
+renderPrices();
+
+}
+
+
+/* ================================
+   خروج
+================================ */
+
+function logoutAdmin(){
+
+document
+.getElementById("dashboard")
+.classList.add("hidden");
+
+document
+.getElementById("customerPage")
+.classList.remove("hidden");
+
+}
+
+
+/* ================================
+   ابزار
+================================ */
+
+function formatNumber(number){
+
+return Number(number)
+.toLocaleString("fa-IR");
+
+}
+
+
+function escapeHTML(text){
+
+return String(text)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+</script>
+
+</body>
+</html>
